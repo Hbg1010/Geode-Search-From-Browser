@@ -1,0 +1,17 @@
+{
+	"geode": "4.2.0",
+	"gd": {
+		"win": "2.2074",
+		"android": "2.2074",
+		"mac": "2.2074",
+		"ios": "2.2074"
+	},
+	"id": "hbg1010.urisearcher",
+	"name": "uriSearcher",
+	"version": "v1.0.0",
+	"developer": "Hbg1010",
+	"description": "",
+	"dependencies": {
+		"camila314.geode-uri": ">=v1.0.2"
+	}
+}
