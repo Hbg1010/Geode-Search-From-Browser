@@ -103,6 +103,21 @@ $on_mod(Loaded) {
 		// levelLayer->setTouchPriority(-500);
 		// scene->addChild(levelLayer);
 	});
+
+	// handleURI("search", [](std::string const& mode, std::string const& content) {
+	// 	std::string text = content;
+	// 	std::transform(text.begin(), text.end(), text.begin(), [](unsigned char c) {return std::tolower(c);});
+
+	// 	// switch (mode)
+	// 	// {
+	// 	// case constant expression:
+	// 	// 	/* code */
+	// 	// 	break;
+		
+	// 	// default:
+	// 	// 	break;
+	// 	// }
+	// });
 };
 
 
