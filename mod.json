@@ -18,5 +18,8 @@
 		"online",
 		"universal",
 		"utility"
-	]
+	],
+	"links": {
+		"source": "https://github.com/Hbg1010/Geode-Search-From-Browser"
+	}
 }
