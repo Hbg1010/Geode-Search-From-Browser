@@ -14,15 +14,53 @@
 
 using namespace geode::prelude;
 
-class LevelBrowserLayerFromSearch : public LevelBrowserLayer {
-	void keyBackClicked() override {
-		if (true) {
-			CCDirector::sharedDirector()->popScene();
+// class LevelBrowserLayerFromSearch : public LevelBrowserLayer {
+// 	void keyBackClicked() override {
+// 		if (true) {
+// 			CCDirector::sharedDirector()->popScene();
+// 		} else {
+// 			LevelBrowserLayer::keyBackClicked();
+// 		}
+// 	}
+// };
+
+void addSearchLayer(GJSearchObject* searchObj) {
+	auto levelLayer = LevelBrowserLayer::scene(searchObj);
+
+	if (auto x = typeinfo_cast<PlayLayer*>(CCScene::get()->getChildren()->objectAtIndex(0))) {
+		if (!x->m_isPaused) x->pauseGame(true);
+			bool shouldReplace = false;
+			geode::createQuickPopup(
+			"HOLD ON!",            // title
+			"You are about to be redirected out of this level! Are you sure you want leave?",   // content
+			"No", "Exit",      // buttons
+			[levelLayer](auto, bool btn2) mutable {
+				if (btn2) {
+					// sends event here
+				}
+			}
+		);		
+
+	} else if (auto x = typeinfo_cast<LevelEditorLayer*>(CCScene::get()->getChildren()->objectAtIndex(0))) {
+		geode::createQuickPopup(
+			"HOLD ON!",            // title
+			"You are about to be redirected out of the editor. Are you sure you don't want to save before exiting?",   // content
+			"No", "Exit",      // buttons
+			[](auto, bool btn2) {
+				if (btn2) {
+					// CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, levelLayer));
+				}
+			}
+		);
 		} else {
-			LevelBrowserLayer::keyBackClicked();
+			CCDirector::sharedDirector()->pushScene(levelLayer);
 		}
-	}
-};
+
+// onReplace: 
+// 	if (shouldReplace) {
+// 			CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, levelLayer));
+// 		}
+}
 
 $on_mod(Loaded) {
 	handleURI("alert", [](std::string const& path) {
@@ -32,32 +70,34 @@ $on_mod(Loaded) {
 	// Level searching: TODO figure out correct sorting with links
 	handleURI("level", [](std::string const& path) {
 		GJSearchObject* x = GJSearchObject::create(SearchType::Search, path);
-		auto levelLayer = LevelBrowserLayer::scene(x);
+		addSearchLayer(x);
+		// auto levelLayer = LevelBrowserLayer::scene(x);
 
-		if (auto x = typeinfo_cast<PlayLayer*>(CCScene::get()->getChildren()->objectAtIndex(0))) {
-			CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, levelLayer));
+		// if (auto x = typeinfo_cast<PlayLayer*>(CCScene::get()->getChildren()->objectAtIndex(0))) {
+		// 	CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, levelLayer));
 
-		} else if (auto x = typeinfo_cast<LevelEditorLayer*>(CCScene::get()->getChildren()->objectAtIndex(0))) {
-			geode::createQuickPopup(
-				"HOLD ON!",            // title
-				"You are about to be redirected out of the editor. Are you sure you want to save before exiting?",   // content
-				"No", "Exit",      // buttons
-				[levelLayer](auto, bool btn2) {
-					if (btn2) {
-						CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, levelLayer));
-					}
-				}
-			);
-		} else {
-			CCDirector::sharedDirector()->pushScene(levelLayer);
-		}
+		// } else if (auto x = typeinfo_cast<LevelEditorLayer*>(CCScene::get()->getChildren()->objectAtIndex(0))) {
+		// 	geode::createQuickPopup(
+		// 		"HOLD ON!",            // title
+		// 		"You are about to be redirected out of the editor. Are you sure you want to save before exiting?",   // content
+		// 		"No", "Exit",      // buttons
+		// 		[levelLayer](auto, bool btn2) {
+		// 			if (btn2) {
+		// 				CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, levelLayer));
+		// 			}
+		// 		}
+		// 	);
+		// } else {
+		// 	CCDirector::sharedDirector()->pushScene(levelLayer);
+		// }
 	});
 
 	// Handles searching for players
 	handleURI("user", [](std::string const& path) {
 		GJSearchObject* x = GJSearchObject::create(SearchType::Users, path);
-		auto levelLayer = LevelBrowserLayer::scene(x);
-		CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(.5f, levelLayer));
+		addSearchLayer(x);
+		// auto levelLayer = LevelBrowserLayer::scene(x);
+		// CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(.5f, levelLayer));
 		// CCDirector::
 		// auto scene = CCScene::get();
 		// levelLayer->setTouchPriority(-500);
