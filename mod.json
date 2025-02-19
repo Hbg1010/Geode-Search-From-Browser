@@ -7,11 +7,16 @@
 		"ios": "2.2074"
 	},
 	"id": "hbg1010.urisearcher",
-	"name": "uriSearcher",
+	"name": "Search from Browser",
 	"version": "v1.0.0",
 	"developer": "Hbg1010",
-	"description": "",
+	"description": "open user + level profiles from your browser!",
 	"dependencies": {
 		"camila314.geode-uri": ">=v1.0.2"
-	}
+	},
+	"tags": [
+		"online",
+		"universal",
+		"utility"
+	]
 }
