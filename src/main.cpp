@@ -48,7 +48,6 @@ void addSearchLayer(SearchType type, std::string input) {
 				}
 			});
 	} else {
-		log::debug("x");
 		auto search = GJSearchObject::create(type, input);
 		auto levelLayer = LevelBrowserLayer::scene(search);
 		CCDirector::sharedDirector()->pushScene(levelLayer);
