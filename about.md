@@ -2,9 +2,18 @@
 
 This mod allows the user to search in gd from their browser!
 
-HOW TO USE:
-In your browser, write 
-Geode://level/<ID> or Geode://user/<Username>
 
-TODO: add early load, and add searching for levels with filters / strings rather than just IDs
+# How to use
+In your browser, you can use the following:
+
+Geode://level/<ID> 
+
+Geode://user/<Username>
+
+The search menu will then open up in game!
+
+# Credits
+- Mod and logo made by Hbg
+- Geode URI library by Camila314
+
 
