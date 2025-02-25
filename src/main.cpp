@@ -4,7 +4,7 @@ using namespace geode::prelude;
 
 void addSearchLayer(SearchType type, const std::string& input) {
 	if (auto pl = PlayLayer::get()) {
-		if (!pl->m_isPaused) UILayer::get()->onPause(nullptr);
+		if (!pl->m_isPaused || (pl->getParent() && !pl->getParent()->getChildByType<PauseLayer>(0))) UILayer::get()->onPause(nullptr);
 		// bool shouldReplace = false;
 		geode::createQuickPopup(
 			"HOLD ON!",            // title
@@ -13,7 +13,7 @@ void addSearchLayer(SearchType type, const std::string& input) {
 			[=](auto, bool btn2) {
 				if (!btn2) return;
 				// log::debug("{}", input);
-				PauseLayer* pauseLayer = CCScene::get()->getChildByType<PauseLayer>(0);
+				PauseLayer* pauseLayer = pl->getParent()->getChildByType<PauseLayer>(0);
 				if (!pauseLayer) pauseLayer = PauseLayer::create(false);
 				if (!pauseLayer) return;
 				pauseLayer->onQuit(nullptr);
