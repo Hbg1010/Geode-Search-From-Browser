@@ -30,7 +30,7 @@ void addSearchLayer(SearchType type, const std::string& input) {
 			"No", "Exit",      // buttons
 			[=](auto, bool btn2) {
 				if (!btn2) return;
-				EditorUI* editorPause = EditorPauseLayer::create(lel);
+				EditorPauseLayer* editorPause = EditorPauseLayer::create(lel);
 				if (!editorPause) return;
 				editorPause->onSaveAndPlay(nullptr);
 				auto search = GJSearchObject::create(type, input);
