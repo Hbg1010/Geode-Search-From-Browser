@@ -17,7 +17,10 @@ void addSearchLayer(SearchType type, const std::string_view input) {
 				if (!pauseLayer) pauseLayer = PauseLayer::create(false);
 				if (!pauseLayer) return;
 				pauseLayer->onQuit(nullptr);
-				openSearchLayer(type, input);
+				auto search = GJSearchObject::create(type, input);
+				// log::debug("{}", static_cast<int>(searchObj->m_searchType));
+				auto levelLayer = LevelBrowserLayer::scene(search);
+				CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, levelLayer));
 			}
 		);		
 	} else if (auto lel = LevelEditorLayer::get()) {
@@ -30,18 +33,19 @@ void addSearchLayer(SearchType type, const std::string_view input) {
 				EditorUI* editorPause = EditorPauseLayer::create(lel);
 				if (!editorPause) return;
 				editorPause->onSaveAndPlay(nullptr);
-				openSearchLayer(type, input);
+				auto search = GJSearchObject::create(type, input);
+				// log::debug("{}", static_cast<int>(searchObj->m_searchType));
+				auto levelLayer = LevelBrowserLayer::scene(search);
+				CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, levelLayer));
 			}
 		);
-	} else openSearchLayer(type, input);
+	} else {
+		auto search = GJSearchObject::create(type, input);
+		auto levelLayer = LevelBrowserLayer::scene(search);
+		CCDirector::sharedDirector()->pushScene(levelLayer);
+	}
 }
 
-void openSearchLayer(SearchType type, const std::string_view input) {
-	auto search = GJSearchObject::create(type, input);
-	// log::debug("{}", static_cast<int>(searchObj->m_searchType));
-	auto levelLayer = LevelBrowserLayer::scene(search);
-	CCDirector::sharedDirector()->pushScene(levelLayer);
-}
 
 $on_mod(Loaded) {
 	// Level searching: TODO figure out correct sorting with links
@@ -54,3 +58,5 @@ $on_mod(Loaded) {
 		addSearchLayer(SearchType::Users, path);
 	});
 };
+
+
