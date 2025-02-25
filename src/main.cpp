@@ -17,10 +17,12 @@ void addSearchLayer(SearchType type, const std::string& input) {
 				if (!pauseLayer) pauseLayer = PauseLayer::create(false);
 				if (!pauseLayer) return;
 				pauseLayer->onQuit(nullptr);
-				auto search = GJSearchObject::create(type, input);
-				// log::debug("{}", static_cast<int>(searchObj->m_searchType));
-				auto levelLayer = LevelBrowserLayer::scene(search);
-				CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, levelLayer));
+				Loader::get()->queueInMainThread([=](auto) {
+					auto search = GJSearchObject::create(type, input);
+					// log::debug("{}", static_cast<int>(searchObj->m_searchType));
+					auto levelLayer = LevelBrowserLayer::scene(search);
+					CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, levelLayer));
+				});
 			}
 		);		
 	} else if (auto lel = LevelEditorLayer::get()) {
