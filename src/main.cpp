@@ -2,7 +2,7 @@
 
 using namespace geode::prelude;
 
-void addSearchLayer(SearchType type, const std::string_view input) {
+void addSearchLayer(SearchType type, const std::string& input) {
 	if (auto pl = PlayLayer::get()) {
 		if (!pl->m_isPaused) UILayer::get()->onPause(nullptr);
 		// bool shouldReplace = false;
