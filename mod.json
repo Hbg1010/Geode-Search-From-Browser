@@ -10,7 +10,10 @@
 	"developer": "Hbg1010",
 	"description": "open user + level profiles from your browser!",
 	"dependencies": {
-		"camila314.geode-uri": ">=v1.0.2"
+		"camila314.geode-uri": {
+			"importance": "required",
+			"version": ">=1.0.2"
+		}
 	},
 	"tags": [
 		"online",
