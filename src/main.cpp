@@ -14,6 +14,8 @@ void addSearchLayer(SearchType type, const std::string& input) {
 				if (!btn2) return;
 				// log::debug("{}", input);
 				PauseLayer* pauseLayer = pl->getParent()->getChildByType<PauseLayer>(0);
+				if (!pauseLayer) pauseLayer = PauseLayer::create(false);
+				if (!pauseLayer) return;
 				pauseLayer->onQuit(nullptr);
 				auto search = GJSearchObject::create(type, input);
 				// log::debug("{}", static_cast<int>(searchObj->m_searchType));
