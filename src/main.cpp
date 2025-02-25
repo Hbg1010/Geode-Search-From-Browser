@@ -17,12 +17,11 @@ void addSearchLayer(SearchType type, const std::string& input) {
 				if (!pauseLayer) pauseLayer = PauseLayer::create(false);
 				if (!pauseLayer) return;
 				pauseLayer->onQuit(nullptr);
-				Loader::get()->queueInMainThread([]{
-					auto search = GJSearchObject::create(type, input);
-					// log::debug("{}", static_cast<int>(searchObj->m_searchType));
-					auto levelLayer = LevelBrowserLayer::scene(search);
-					CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, levelLayer));
-				});
+				// ok so everything below this line needs to be delayed somehow
+				auto search = GJSearchObject::create(type, input);
+				// log::debug("{}", static_cast<int>(searchObj->m_searchType));
+				auto levelLayer = LevelBrowserLayer::scene(search);
+				CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, levelLayer));
 			}
 		);		
 	} else if (auto lel = LevelEditorLayer::get()) {
