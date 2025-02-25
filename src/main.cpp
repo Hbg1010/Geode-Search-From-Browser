@@ -57,11 +57,6 @@ void addSearchLayer(SearchType type, std::string input) {
 
 
 $on_mod(Loaded) {
-
-	handleURI("alert", [](std::string const& path) {
-		FLAlertLayer::create("Custom Alert", path, "Ok")->show();
-	});
-
 	// Level searching: TODO figure out correct sorting with links
 	handleURI("level", [](std::string const& path) {
 		addSearchLayer(SearchType::Search, path);
@@ -70,10 +65,6 @@ $on_mod(Loaded) {
 	// Handles searching for players
 	handleURI("user", [](std::string const& path) {
 		addSearchLayer(SearchType::Users, path);
-	});
-
-	handleURI("alert", [](std::string const& path) {
-		FLAlertLayer::create("Custom Alert", path, "Ok")->show();
 	});
 };
 
