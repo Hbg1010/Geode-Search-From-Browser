@@ -17,7 +17,7 @@ void addSearchLayer(SearchType type, const std::string& input) {
 				if (!pauseLayer) pauseLayer = PauseLayer::create(false);
 				if (!pauseLayer) return;
 				pauseLayer->onQuit(nullptr);
-				Loader::get()->queueInMainThread([=](auto) {
+				Loader::get()->queueInMainThread([]{
 					auto search = GJSearchObject::create(type, input);
 					// log::debug("{}", static_cast<int>(searchObj->m_searchType));
 					auto levelLayer = LevelBrowserLayer::scene(search);
