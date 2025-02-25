@@ -23,6 +23,5 @@
 	"issues": {
 		"url": "https://github.com/Hbg1010/Geode-Search-From-Browser/issues",
 		"info": "If you encounter any crashes, please report it to the github!"
-	},
-	"early-load": true
+	}
 }
