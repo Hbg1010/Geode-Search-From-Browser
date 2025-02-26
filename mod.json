@@ -6,7 +6,7 @@
 	},
 	"id": "hbg1010.urisearcher",
 	"name": "Search from Browser",
-	"version": "v1.0.0",
+	"version": "v1.0.1",
 	"developer": "Hbg1010",
 	"description": "open user + level profiles from your browser!",
 	"dependencies": {
