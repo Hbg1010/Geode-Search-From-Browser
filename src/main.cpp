@@ -68,7 +68,7 @@ void addSearchLayer(SearchType type, const std::string& input) {
 	} else if (auto lel = LevelEditorLayer::get()) {
 		geode::createQuickPopup(
 			"HOLD ON!",            // title
-			"You are about to be redirected out of the editor. Are you sure you don't want to save before exiting?",   // content
+			"You are about to be redirected out of the editor. Your changes will be saved!",   // content
 			"No", "Exit",      // buttons
 			[=](auto, bool btn2) {
 				if (!btn2) return;
