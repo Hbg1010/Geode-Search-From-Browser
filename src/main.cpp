@@ -12,7 +12,6 @@ class $modify(awesomeGM, GameManager) {
 
 	void returnToLastScene(GJGameLevel* p0) {
 		if (std::ref(m_fields->thing) == nullptr) {
-			// log::debug("{}", p0->m_localOrSaved);
 			GameManager::returnToLastScene(p0);
 		} else {
 			const int ID = p0->m_levelID.value();
@@ -56,13 +55,12 @@ void addSearchLayer(SearchType type, const std::string& input) {
 				PauseLayer* pauseLayer = pl->getParent()->getChildByType<PauseLayer>(0);
 				if (!pauseLayer) pauseLayer = PauseLayer::create(false);
 				if (!pauseLayer) return;
-				// GameManager::get()->returnToLastScene();
+
 				auto search = GJSearchObject::create(type, input);
 				auto levelLayer = LevelBrowserLayer::scene(search);
 				awesomeGM* manager = static_cast<awesomeGM*>(GameManager::get());
 				manager->tempField(levelLayer);
 				pauseLayer->onQuit(nullptr);
-				// delayedReplace(type, input);
 			}
 		);		
 	} else if (auto lel = LevelEditorLayer::get()) {
@@ -76,7 +74,6 @@ void addSearchLayer(SearchType type, const std::string& input) {
 				if (!editorPause) return;
 				editorPause->onSaveAndPlay(nullptr);
 				auto search = GJSearchObject::create(type, input);
-				// log::debug("{}", static_cast<int>(searchObj->m_searchType));
 				auto levelLayer = LevelBrowserLayer::scene(search);
 				CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, levelLayer));
 			}
