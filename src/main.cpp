@@ -11,15 +11,16 @@ class $modify(awesomeGM, GameManager) {
 	};
 
 	void returnToLastScene(GJGameLevel* p0) {
-
 		if (std::ref(m_fields->thing) == nullptr) {
+			// log::debug("{}", p0->m_localOrSaved);
 			GameManager::returnToLastScene(p0);
-
 		} else {
 			const int ID = p0->m_levelID.value();
 			CCScene* sceneAhead = nullptr;
 
-			if (ID <= 23) {
+			if (p0->m_localOrSaved){
+				sceneAhead = EditLevelLayer::scene(p0);
+			} else if (ID <= 23) {
 				sceneAhead = LevelSelectLayer::scene(ID-1);
 			} else if (ID == 3001) {
 				sceneAhead = SecretLayer2::scene();
@@ -28,13 +29,14 @@ class $modify(awesomeGM, GameManager) {
 			} else {
 				sceneAhead = LevelInfoLayer::scene(p0, false);
 			}
-										 
+			
 			CCDirector::sharedDirector()->replaceScene(sceneAhead);
 			CCDirector::sharedDirector()->pushScene(m_fields->thing);
 			m_fields->thing = nullptr;
 		}
 	}
 
+	// stores a scene to the gamemanager instance
 	void tempField(CCScene* sent) {
 		m_fields->thing = sent;
 	}
