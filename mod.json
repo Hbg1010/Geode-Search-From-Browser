@@ -1,12 +1,12 @@
 {
-	"geode": "4.2.0",
+	"geode": "4.3.1",
 	"gd": {
 		"win": "2.2074",
 		"mac": "2.2074"
 	},
 	"id": "hbg1010.urisearcher",
 	"name": "Search from Browser",
-	"version": "v1.0.1",
+	"version": "v1.0.2",
 	"developer": "Hbg1010",
 	"description": "open user + level profiles from your browser!",
 	"dependencies": {
@@ -21,7 +21,8 @@
 		"utility"
 	],
 	"links": {
-		"source": "https://github.com/Hbg1010/Geode-Search-From-Browser"
+		"source": "https://github.com/Hbg1010/Geode-Search-From-Browser",
+		"community": "https://discord.gg/V4xQnNxfNh"
 	},
 	"issues": {
 		"url": "https://github.com/Hbg1010/Geode-Search-From-Browser/issues",
