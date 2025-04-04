@@ -27,5 +27,35 @@
 	"issues": {
 		"url": "https://github.com/Hbg1010/Geode-Search-From-Browser/issues",
 		"info": "If you encounter any crashes, please report it to the github!"
+	},
+	"settings": {
+		"plPopup": {
+			"type": "bool",
+			"default": true,
+			"name": "Playlayer warning",
+			"description": "Adds a warning popup if you are currently in a level in game"
+		},
+		"editorPopup": {
+			"type": "bool",
+			"default": true,
+			"name": "Editor warning",
+			"description": "Adds a warning popup if you are currently in the editor in game. Disabling will still cause your changes to be saved"
+		},
+		"editor":{
+			"type": "title",
+			"name": "Editor Saving"
+		},
+		"savePopup": {
+			"type": "bool",
+			"name": "Saving popup",
+			"default": true,
+			"description": "Adds an aditional popup that allows you to choose if you want to save"
+		},
+		"saveByDefault": {
+			"type": "bool",
+			"name": "Save on exit",
+			"default": true,
+			"description": "If the save popup setting found above is disabled, this setting will decide if the game should save before exiting the current level editor instance or not"
+		}
 	}
 }

@@ -66,8 +66,8 @@ void editorSearch(SearchType type, const std::string& input, LevelEditorLayer* l
 	}
 
 	auto levelLayer = LevelBrowserLayer::scene(search);
-	CCDirector::sharedDirector()->pushScene(levelLayer);
-	// CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, levelLayer));
+	// CCDirector::sharedDirector()->pushScene(levelLayer);
+	CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, levelLayer));
 }
 
 
