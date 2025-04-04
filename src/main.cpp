@@ -41,23 +41,25 @@ class $modify(awesomeGM, GameManager) {
 	}
 };
 
-void playSearch(SearchType type, const std::string& input, PlayLayer* pl = PlayLayer::get(), int searchMode) {
+void playSearch(SearchType type, const std::string& input, int searchMode, PlayLayer* pl = PlayLayer::get()) {
 	PauseLayer* pauseLayer = pl->getParent()->getChildByType<PauseLayer>(0);
 	if (!pauseLayer) pauseLayer = PauseLayer::create(false);
 	if (!pauseLayer) return;
 
 	auto search = GJSearchObject::create(type, input);
+	search->m_searchMode = searchMode;
 	auto levelLayer = LevelBrowserLayer::scene(search);
 	awesomeGM* manager = static_cast<awesomeGM*>(GameManager::get());
 	manager->tempField(levelLayer);
 	pauseLayer->onQuit(nullptr);
 }
 
-void editorSearch(SearchType type, const std::string& input, LevelEditorLayer* lel = LevelEditorLayer::get(), int searchMode) {
+void editorSearch(SearchType type, const std::string& input, int searchMode, LevelEditorLayer* lel = LevelEditorLayer::get()) {
 	EditorPauseLayer* editorPause = EditorPauseLayer::create(lel);
 	if (!editorPause) return;
 
 	auto search = GJSearchObject::create(type, input);
+	search->m_searchMode = searchMode;
 
 	if (Mod::get()->getSettingValue<bool>("saveByDefault")) {
 		editorPause->onSaveAndPlay(nullptr);
@@ -80,9 +82,9 @@ void addSearchLayer(SearchType type, const std::string& input, int searchMode = 
 					"You are about to be redirected out of this level! Are you sure you want leave?",   // content
 					"No", "Exit",      // buttons
 					[=](auto, bool btn2) {
-						if (btn2) playSearch(type, input, pl, searchMode);
+						if (btn2) playSearch(type, input, searchMode, pl);
 				});		
-			} else playSearch(type, input, pl, searchMode);
+			} else playSearch(type, input, searchMode, pl);
 
 	} else if (auto lel = LevelEditorLayer::get()) {
 		if (Mod::get()->getSettingValue<bool>("editorPopup")) {
@@ -91,10 +93,10 @@ void addSearchLayer(SearchType type, const std::string& input, int searchMode = 
 				"You are about to be redirected out of the editor. Your changes will be saved!",   // content
 				"No", "Exit",      // buttons
 				[=](auto, bool btn2) {
-					if (btn2) return editorSearch(type, input, lel, searchMode);
+					if (btn2) return editorSearch(type, input, searchMode, lel);
 				}
 			);
-		} else editorSearch(type, input, lel, searchMode);
+		} else editorSearch(type, input, searchMode, lel);
 
 	} else {
 		auto search = GJSearchObject::create(type, input);
