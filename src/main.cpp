@@ -65,14 +65,14 @@ void playSearch(SearchType type, const std::string& input, int searchMode, PlayL
 	pauseLayer->onQuit(nullptr);
 }
 
-void editorSearch(SearchType type, const std::string& input, int searchMode, LevelEditorLayer* lel = LevelEditorLayer::get()) {
+void editorSearch(SearchType type, const std::string& input, int searchMode, LevelEditorLayer* lel = LevelEditorLayer::get(), bool save = Mod::get()->getSettingValue<bool>("saveByDefault")) {
 	EditorPauseLayer* editorPause = EditorPauseLayer::create(lel);
 	if (!editorPause) return;
 
 	auto search = GJSearchObject::create(type, input);
 	search->m_searchMode = searchMode;
 
-	if (Mod::get()->getSettingValue<bool>("saveByDefault")) {
+	if (save) {
 		editorPause->onSaveAndPlay(nullptr);
 	} else {
 		editorPause->onExitNoSave(nullptr);
@@ -99,12 +99,34 @@ void addSearchLayer(SearchType type, const std::string& input, int searchMode = 
 
 	} else if (auto lel = LevelEditorLayer::get()) {
 		if (Mod::get()->getSettingValue<bool>("editorPopup")) {
+
+			std::string description = "You are about to be redirected out of the editor.";
+
+			if (!Mod::get()->getSettingValue<bool>("savePopup")) {
+				if (Mod::get()->getSettingValue<bool>("saveByDefault")) {
+					description = description + " Your changes will be saved!";
+				} else {
+					description = description +  "Your changes <cr>won't</c> be saved!";
+				}
+			}
+
+			// creates the popup
 			geode::createQuickPopup(
 				"HOLD ON!",            // title
-				"You are about to be redirected out of the editor. Your changes will be saved!",   // content
+				description,
 				"No", "Exit",      // buttons
 				[=](auto, bool btn2) {
-					if (btn2) return editorSearch(type, input, searchMode, lel);
+					if (!btn2) return;
+					if (!Mod::get()->getSettingValue<bool>("savePopup")) return editorSearch(type, input, searchMode, lel);
+
+					geode::createQuickPopup(
+						"Save?",            // title
+						"Do you want to save",   // content
+						"Exit", "Save",      // buttons
+						[=](auto, bool button2) {
+							editorSearch(type, input, searchMode, lel, button2);
+						}
+					);
 				}
 			);
 		} else editorSearch(type, input, searchMode, lel);
@@ -116,20 +138,6 @@ void addSearchLayer(SearchType type, const std::string& input, int searchMode = 
 		CCDirector::sharedDirector()->pushScene(levelLayer);
 	}
 }
-
-#include <Geode/modify/LevelBrowserLayer.hpp>
-class $modify(ieatfarts, LevelBrowserLayer) {
-	bool init(GJSearchObject* searchBy) {
-		if (!LevelBrowserLayer::init(searchBy)) return false;
-
-		log::debug("{}", static_cast<int>(searchBy->m_searchType));
-		log::debug("mode {}", static_cast<int>(searchBy->m_searchMode));
-		log::debug("searchStuff {}", searchBy->m_searchQuery);
-
-
-		return true;
-	}
-};
 
 // these are the handles that you are able to use 
 $on_mod(Loaded) {
@@ -147,13 +155,13 @@ $on_mod(Loaded) {
 		addSearchLayer(SearchType::Search, path, 1); // 1 is list mode
 	});
 
-	handleURI("mappack", [](std::string const& path) {
-		addSearchLayer(SearchType::MapPackOnClick, path); // 1 is list mode
+	handleURI("mappacks", [](std::string const& path) {
+		addSearchLayer(SearchType::MapPack, path);
 	});
 
 	// TODO
 
-	// handleURI("mappacks", [](std::string const& path) {
+	// handleURI("mappack", [](std::string const& path) {
 	// 	addSearchLayer(SearchType::MapPack, path); // 1 is list mode
 	// });
 

@@ -48,8 +48,8 @@
 		"savePopup": {
 			"type": "bool",
 			"name": "Saving popup",
-			"default": true,
-			"description": "Adds an aditional popup that allows you to choose if you want to save"
+			"default": false,
+			"description": "Adds an aditional popup that allows you to choose if you want to save. Recommended if you want to easily be able to choose when exiting, otherwise a little risky"
 		},
 		"saveByDefault": {
 			"type": "bool",
