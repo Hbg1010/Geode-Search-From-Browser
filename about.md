@@ -8,6 +8,8 @@ In your browser, you can use the following:
 
 Geode://level/<ID> 
 
+Geode://list<ID>
+
 Geode://user/<Username>
 
 The search menu will then open up in game!
@@ -15,7 +17,7 @@ The search menu will then open up in game!
 If you run into any problems, please report it on my discord, or on the github!
 
 # Credits
-- Mod and logo made by Hbg and Ery
+- Mod made by Hbg and Ery
 - Geode URI library by Camila314
 
 
