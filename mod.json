@@ -8,7 +8,7 @@
 	"name": "Search from Browser",
 	"version": "v1.0.2",
 	"developer": "Hbg1010",
-	"description": "open user + level profiles from your browser!",
+	"description": "Use browser to open search resaults in gd!",
 	"dependencies": {
 		"camila314.geode-uri": {
 			"importance": "required",
