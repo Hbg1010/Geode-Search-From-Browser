@@ -1,6 +1,17 @@
 #include <camila314.geode-uri/include/GeodeURI.hpp>
-
+#include <vector>
 using namespace geode::prelude;
+
+// unused for now!!
+// std::vector<std::string> splitString(const std::string& str, char delimiter) {
+//     std::vector<std::string> tokens;
+//     std::stringstream ss(str);
+//     std::string token;
+//     while (std::getline(ss, token, delimiter)) {
+//         tokens.push_back(token);
+//     }
+//     return tokens;
+// }
 
 // used to modify return to last scene
 #include <Geode/modify/GameManager.hpp>
@@ -113,11 +124,14 @@ class $modify(ieatfarts, LevelBrowserLayer) {
 
 		log::debug("{}", static_cast<int>(searchBy->m_searchType));
 		log::debug("mode {}", static_cast<int>(searchBy->m_searchMode));
+		log::debug("searchStuff {}", searchBy->m_searchQuery);
+
 
 		return true;
 	}
 };
 
+// these are the handles that you are able to use 
 $on_mod(Loaded) {
 	// Level searching: TODO figure out correct sorting with links
 	handleURI("level", [](std::string const& path) {
@@ -132,4 +146,81 @@ $on_mod(Loaded) {
 	handleURI("list", [](std::string const& path) {
 		addSearchLayer(SearchType::Search, path, 1); // 1 is list mode
 	});
+
+	handleURI("mappack", [](std::string const& path) {
+		addSearchLayer(SearchType::MapPackOnClick, path); // 1 is list mode
+	});
+
+	// TODO
+
+	// handleURI("mappacks", [](std::string const& path) {
+	// 	addSearchLayer(SearchType::MapPack, path); // 1 is list mode
+	// });
+
+	/*
+	This is a pain in the ass and is NOT a priority. sorry gang.
+	*/
+
+	// handleURI("levelfilter", [](std::string const& path) {
+	// 	// std::vector resault = splitString(path, '/');
+
+	// 	SearchType searchBy;
+
+	// 	switch(path) {
+	// 		case "search":
+	// 		case "0":
+	// 			searchBy = SearchType::Search;
+	// 			break;
+	// 		case "downloaded":
+	// 		case "downloads":
+	// 		case "1":
+	// 			searchBy = SearchType::Downloaded;
+	// 			break;
+	// 		case "likes":
+	// 		case "2":
+	// 			searchBy = SearchType::MostLiked;
+	// 			break;
+	// 		case "trending":
+	// 		case "3":
+	// 			searchBy = SearchType::Trending;
+	// 			break;
+	// 		case "recent":
+	// 		case "4":
+	// 			searchBy = SearchType::Recent;
+	// 			break;
+	// 		case "featured":
+	// 		case "6":
+	// 			searchBy = SearchType::Featured;
+	// 			break;
+	// 		case "magic":
+	// 		case "7":
+	// 			searchBy = SearchType::Magic;
+	// 			break;
+	// 		case "sends":
+	// 		case "8":
+	// 			searchBy = SearchType::Sends;
+	// 			break;
+	// 		case "awarded":
+	// 		case "11":
+	// 			searchBy = SearchType::Awarded;
+	// 			break;
+	// 		case "followed":
+	// 		case "12":
+	// 			searchBy = SearchType::Followed;
+	// 			break;
+	// 		case "friends":
+	// 		case "13":
+	// 			searchBy = SearchType::Friends;
+	// 			break;
+	// 		case "friends":
+	// 		case "14":
+	// 			searchBy = SearchType::Friends;
+	// 			break;
+	// 		default:
+	// 			Notification::create("Invalid search filter", NotificationIcon::Error, 3)->show();
+	// 			return;
+	// 	}
+
+	// 	addSearchLayer(searchBy, path);
+	// });
 };

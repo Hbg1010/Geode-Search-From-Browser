@@ -6,15 +6,18 @@ This mod allows the user to search in gd from their browser!
 # How to use
 In your browser, you can use the following:
 
-Geode://level/<ID> 
+Geode://level/<Name/ID> 
 
-Geode://list<ID>
+Geode://list/<Name/ID> 
 
-Geode://user/<Username>
+Geode://user/<Username/ID>
+
+Geode://mappacks <cb>:terror:</c>
 
 The search menu will then open up in game!
 
-If you run into any problems, please report it on my discord, or on the github!
+# Bug / Feature support
+If you run into any problems or want to suggest any features, please send them on my discord, or on the github!
 
 # Credits
 - Mod made by Hbg and Ery
