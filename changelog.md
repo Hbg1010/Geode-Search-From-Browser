@@ -1,4 +1,6 @@
 # 1.0.2
+- search for lists via geode://list/<id>
+- Settings to enable / disable warnings + saving toggle in editor
 - Added my discord for bug reports
 
 # 1.0.1
